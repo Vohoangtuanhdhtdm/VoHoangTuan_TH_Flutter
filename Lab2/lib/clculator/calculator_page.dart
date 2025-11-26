@@ -59,19 +59,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
   void _applyPercent() {
     if (_expression.isEmpty) return;
 
-    // nếu toàn bộ expression là số, chia 100
     double? value = double.tryParse(_expression);
     if (value != null) {
       value = value / 100;
       _expression = value.toString();
-    } else {
-      // trường hợp phức tạp hơn có thể xử lý sau
-    }
+    } else {}
   }
 
   void _addParentheses() {
-    // Cách đơn giản: nếu số ngoặc mở <= số ngoặc đóng, thêm '('
-    // ngược lại thêm ')'
     int openCount = '('.allMatches(_expression).length;
     int closeCount = ')'.allMatches(_expression).length;
 
@@ -86,7 +81,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
     if (_expression.isEmpty) return;
 
     try {
-      // Chuyển ký tự cho math_expressions hiểu
       String exp = _expression.replaceAll('×', '*').replaceAll('÷', '/');
 
       Parser parser = Parser();
@@ -106,10 +100,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
   }
 
   void _toggleSign() {
-    // Đơn giản: nếu chỉ là một số, đảo dấu
     if (_expression.isEmpty) return;
 
-    // Nếu đang chỉ là một số
     if (double.tryParse(_expression) != null) {
       if (_expression.startsWith('-')) {
         _expression = _expression.substring(1);
@@ -119,7 +111,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
       return;
     }
 
-    // Làm đơn giản: đảo dấu trên kết quả
     if (double.tryParse(_result) != null) {
       double value = double.parse(_result) * -1;
       _expression = value.toString();
