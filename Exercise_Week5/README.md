@@ -25,7 +25,7 @@ Dưới đây là giao diện thực tế của ứng dụng:
 
 |        Màn hình Chính (Danh sách)         |                                          Màn hình Soạn thảo                                          |
 | :---------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Home Screen](screenshots/home_todo.png) | ![Add to do list Screen](screenshots/add_todo.png.png) ![Edit Screen](screenshots/edit_todo.png.png) |
+| ![Home Screen](screenshots/home_todo.png) | ![Add to do list Screen](screenshots/add_todo.png) ![Edit Screen](screenshots/edit_todo.png) |
 
 ## 📂 Cấu trúc thư mục
 
