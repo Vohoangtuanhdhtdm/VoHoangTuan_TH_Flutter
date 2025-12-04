@@ -1,27 +1,40 @@
-# Flutter Exercise Week 4 - Advanced UI & Asynchronous Programming
+# 📝 Simple Note App (Week 5) – của Võ Hoàng Tuấn
 
-Bài tập thực hành tuần 4 bao gồm các nội dung về xây dựng giao diện nâng cao (ListView, GridView), lưu trữ cục bộ (Shared Preferences) và xử lý bất đồng bộ (Async, Isolate) trong Flutter.
+## ✨ Tính năng chính
 
-## 📚 Mục lục bài tập
+1.  **Quản lý Ghi chú (CRUD):**
+    - **Tạo mới:** Thêm ghi chú với tiêu đề và nội dung.
+    - **Xem danh sách:** Hiển thị danh sách ghi chú có thể cuộn, sắp xếp theo thời gian cập nhật.
+    - **Chỉnh sửa:** Cập nhật nội dung ghi chú đã có.
+    - **Xóa:** Xóa ghi chú không còn cần thiết.
+2.  **Lưu trữ Offline:**
+    - Sử dụng **SQLite** để lưu trữ bền vững (Persistent local storage). Dữ liệu không bị mất khi tắt app.
+3.  **Theo dõi thời gian:**
+    - Tự động lưu thời gian tạo và thời gian cập nhật lần cuối cho mỗi ghi chú.
 
-Dự án này bao gồm giải pháp cho 5 bài tập chính:
+## 🛠️ Công nghệ sử dụng
 
-1.  **List View Exercise**: Danh sách liên hệ cuộn được.
-2.  **Grid View Exercise**: Thư viện ảnh dạng lưới (Fixed & Responsive).
-3.  **Shared Preferences**: Lưu trữ và truy xuất tên người dùng.
-4.  **Asynchronous Programming**: Mô phỏng tải dữ liệu với `Future`.
-5.  **Isolate Exercises**
+- **Ngôn ngữ:** Dart, Flutter.
+- **State Management:** `provider` (^6.1.0).
+- **Database:** `sqflite` (^2.3.0).
+- **Utilities:** `intl` (định dạng ngày tháng), `path_provider`.
 
----
+## 📸 Ảnh chụp màn hình
 
-## 🚀 Cài đặt và Chạy dự án
+Dưới đây là giao diện thực tế của ứng dụng:
 
-- Dùng lệnh git clone "link git" để kéo dự án về máy và thực hiện:
+|        Màn hình Chính (Danh sách)         |                                          Màn hình Soạn thảo                                          |
+| :---------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![Home Screen](screenshots/home_todo.png) | ![Add to do list Screen](screenshots/add_todo.png.png) ![Edit Screen](screenshots/edit_todo.png.png) |
 
-### Cài đặt dependencies
+## 📂 Cấu trúc thư mục
 
-Chạy lệnh sau để tải các thư viện cần thiết (bao gồm `shared_preferences`):
-
-```bash
-flutter pub get
+```text
+lib/
+├── database/              # Xử lý kết nối DB (DatabaseHelper - Singleton)
+├── models/                # Định nghĩa dữ liệu (Note Model)
+├── providers/             # Quản lý trạng thái (NoteProvider - ViewModel)
+├── screens/               # Giao diện người dùng (HomePage, NoteEditor)
+├── widgets/               # Các widget tái sử dụng (NoteCard)
+└── main.dart              # Khởi chạy ứng dụng và cấu hình Provider
 ```
