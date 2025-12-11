@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calculator_vohoangtuan/providers/weather_provider.dart';
 import 'package:flutter_calculator_vohoangtuan/screens/current_screen.dart';
 import 'package:flutter_calculator_vohoangtuan/screens/search_screen.dart';
+import 'package:flutter_calculator_vohoangtuan/screens/settings_screen.dart';
 import 'package:flutter_calculator_vohoangtuan/widgets/daily_forecast_card.dart';
 import 'package:flutter_calculator_vohoangtuan/widgets/hourly_forecast_list.dart';
 import 'package:flutter_calculator_vohoangtuan/widgets/weather_details_grid.dart';
@@ -28,6 +29,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final weatherAsyncValue = ref.watch(weatherProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.black87),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: const Color(0xFFF5F5F5), // Màu nền nhẹ
       body: RefreshIndicator(
         onRefresh: () async {
