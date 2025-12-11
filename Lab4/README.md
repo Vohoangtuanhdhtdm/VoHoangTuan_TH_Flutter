@@ -1,17 +1,19 @@
 # 🌤️ Flutter Weather App
 
-Link video: https://drive.google.com/file/d/1l33whX0EbBiwIBRqWs-txwg85jaMAQ9h/view?usp=sharing
+Link video: [https://drive.google.com/file/d/1l33whX0EbBiwIBRqWs-txwg85jaMAQ9h/view?usp=sharing](https://drive.google.com/file/d/1ffiGyKUYIlslgw2PMp25F5JFEKsPWnav/view?usp=sharing)
 
 
 ---
 
 ## 📸 Hình ảnh minh họa (Screenshots)
 
-|                                     |                                            |                                            | 
-| :-----------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: | 
-| <img src="screenshot/lab4-home.png" width="200"/> | <img src="screenshot/lab4-search.png" width="200"/> | <img src="screenshot/lab4-detail.png" width="200"/> |
+|                                               |                                               |                                               |                                               |
+| :-------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: |
+| <img src="screenshot/lab4-home.png" width="200"/> | <img src="screenshot/lab4-search.png" width="200"/> | <img src="screenshot/lab4-detail.png" width="200"/> | <img src="screenshot/lab4-setting.png" width="200"/> |
 
 ---
+
+
 
 ## 🛠️ Cài đặt & Hướng dẫn chạy (Installation)
 
