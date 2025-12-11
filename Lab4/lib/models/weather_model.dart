@@ -3,6 +3,9 @@ class WeatherModel {
   final String country;
   final double temperature;
   final double feelsLike;
+  final int sunrise; // Thêm
+  final int sunset; // Thêm
+  final int windDeg; // Thêm hướng gió
   final int humidity;
   final double windSpeed;
   final int pressure;
@@ -17,6 +20,9 @@ class WeatherModel {
 
   WeatherModel({
     required this.cityName,
+    required this.sunrise,
+    required this.sunset,
+    required this.windDeg,
     required this.country,
     required this.temperature,
     required this.feelsLike,
@@ -36,6 +42,9 @@ class WeatherModel {
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
     return WeatherModel(
       cityName: json['name'],
+      sunrise: json['sys']['sunrise'],
+      sunset: json['sys']['sunset'],
+      windDeg: json['wind']['deg'],
       country: json['sys']['country'],
       temperature: json['main']['temp'].toDouble(),
       feelsLike: json['main']['feels_like'].toDouble(),

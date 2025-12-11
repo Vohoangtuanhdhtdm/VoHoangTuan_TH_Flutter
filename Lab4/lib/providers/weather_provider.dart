@@ -9,7 +9,6 @@ final weatherProvider = AsyncNotifierProvider<WeatherNotifier, WeatherState>(
 );
 
 class WeatherNotifier extends AsyncNotifier<WeatherState> {
-  // Hàm build() khởi tạo state ban đầu
   @override
   Future<WeatherState> build() async {
     return WeatherState();
@@ -52,25 +51,23 @@ class WeatherNotifier extends AsyncNotifier<WeatherState> {
           position.longitude,
         );
 
-        final cityName = await locationService.getCityName(
+        //  Lấy dự báo bằng TỌA ĐỘ (SỬA Ở ĐÂY)
+        // Thay vì dùng getForecast(cityName)
+        final forecast = await weatherService.getForecastByCoordinates(
+          // <--- SỬA LẠI TÊN HÀM NÀY
           position.latitude,
           position.longitude,
         );
-
-        final forecast = await weatherService.getForecast(cityName);
 
         await storageService.saveWeatherData(current);
 
         return WeatherState(currentWeather: current, forecast: forecast);
       } catch (e) {
-        // Nếu lỗi location/mạng, thử load cache
         final cached = await storageService.getCachedWeather();
         if (cached != null) {
-          // Lưu ý: Cache cũ của bạn chỉ lưu WeatherModel, không lưu Forecast
-          // Nên ở đây forecast có thể rỗng hoặc bạn cần sửa StorageService để cache cả 2
           return WeatherState(currentWeather: cached, forecast: []);
         }
-        rethrow; // Ném lỗi tiếp để UI hiển thị nếu không có cache
+        rethrow;
       }
     });
   }

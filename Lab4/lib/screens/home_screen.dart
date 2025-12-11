@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calculator_vohoangtuan/providers/weather_provider.dart';
 import 'package:flutter_calculator_vohoangtuan/screens/current_screen.dart';
 import 'package:flutter_calculator_vohoangtuan/screens/search_screen.dart';
+import 'package:flutter_calculator_vohoangtuan/widgets/daily_forecast_card.dart';
+import 'package:flutter_calculator_vohoangtuan/widgets/hourly_forecast_list.dart';
+import 'package:flutter_calculator_vohoangtuan/widgets/weather_details_grid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -15,7 +18,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Gọi data ngay khi init
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(weatherProvider.notifier).fetchWeatherByLocation();
     });
@@ -23,19 +25,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Watch state
     final weatherAsyncValue = ref.watch(weatherProvider);
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5), // Màu nền nhẹ
       body: RefreshIndicator(
         onRefresh: () async {
           await ref.read(weatherProvider.notifier).refreshWeather();
         },
         child: weatherAsyncValue.when(
-          // 1. Trạng thái Loading
           loading: () => const Center(child: CircularProgressIndicator()),
-
-          // 2. Trạng thái Error
           error: (error, stack) => Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -43,6 +42,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const Icon(Icons.error_outline, size: 48, color: Colors.red),
                 const SizedBox(height: 16),
                 Text('Lỗi: ${error.toString()}'),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => ref
                       .read(weatherProvider.notifier)
@@ -52,8 +52,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
           ),
-
-          // 3. Trạng thái Data
           data: (weatherState) {
             if (weatherState.currentWeather == null) {
               return const Center(child: Text('Đang định vị...'));
@@ -62,19 +60,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             return SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      // Hiển thị thời tiết hiện tại
-                      CurrentWeatherCard(weather: weatherState.currentWeather!),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // 1. Current Weather (Card chính)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: CurrentWeatherCard(
+                        weather: weatherState.currentWeather!,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: WeatherDetailsGrid(
+                        weather: weatherState.currentWeather!,
+                      ),
+                    ),
 
-                      // Hiển thị dự báo (List Forecast)
-                      // Bạn có thể bỏ comment khi đã có widget hiển thị list
-                      // SizedBox(height: 20),
-                      // HourlyForecastList(forecasts: weatherState.forecast),
-                    ],
-                  ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Hourly Forecast",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    HourlyForecastList(forecasts: weatherState.forecast),
+                    const SizedBox(height: 20),
+                    DailyForecastCard(forecasts: weatherState.forecast),
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
             );
