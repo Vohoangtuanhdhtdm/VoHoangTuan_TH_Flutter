@@ -6,6 +6,7 @@ class StorageService {
   static const String _weatherKey = 'cached_weather';
   static const String _lastUpdateKey = 'last_update';
   static const String _favoriteCitiesKey = 'favorite_cities';
+
   // Save weather data
   Future<void> saveWeatherData(WeatherModel weather) async {
     final prefs = await SharedPreferences.getInstance();

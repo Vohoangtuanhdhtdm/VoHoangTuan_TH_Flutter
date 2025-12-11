@@ -77,4 +77,31 @@ class WeatherService {
   String getIconUrl(String iconCode) {
     return 'https://openweathermap.org/img/wn/$iconCode@2x.png';
   }
+
+  Future<List<ForecastModel>> getForecastByCoordinates(
+    double lat,
+    double lon,
+  ) async {
+    try {
+      final url = ApiConfig.buildUrl(ApiConfig.forecast, {
+        'lat': lat.toString(),
+        'lon': lon.toString(),
+      });
+
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final List<dynamic> forecastList = data['list'];
+        return forecastList
+            .map((item) => ForecastModel.fromJson(item))
+            .toList();
+      } else {
+        print('API Error: ${response.statusCode} - ${response.body}');
+        throw Exception('Failed to load forecast data');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
 }

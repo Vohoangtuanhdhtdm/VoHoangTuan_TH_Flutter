@@ -59,7 +59,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
 
             const SizedBox(height: 30),
-            // (Optional) Bạn có thể thêm list lịch sử tìm kiếm ở đây
             const Text(
               "Popular Cities",
               style: TextStyle(fontSize: 14, color: Colors.grey),
